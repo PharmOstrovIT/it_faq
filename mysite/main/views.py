@@ -18,6 +18,14 @@ def homepage(request):
     return render(request=request, template_name="main/home.html")
 
 
+def apteki(request):
+    return render(request=request, template_name="main/apteki.html")
+
+
+def printers(request):
+    return render(request=request, template_name="main/printers.html")
+
+
 def register_request(request):
     if request.method == "POST":
         form = NewUserForm(request.POST)
