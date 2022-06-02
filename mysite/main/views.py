@@ -18,6 +18,10 @@ def homepage(request):
     return render(request=request, template_name="main/home.html")
 
 
+def wiki(request):
+    return render(request=request, template_name="main/wiki.html")
+
+
 def apteki(request):
     return render(request=request, template_name="main/apteki.html")
 
@@ -49,7 +53,7 @@ def login_request(request):
             if user is not None:
                 login(request, user)
                 messages.info(request, f"You are now logged in as {username}.")
-                return redirect("main:homepage")
+                return redirect("main:wiki")
             else:
                 messages.error(request, "Invalid username or password.")
         else:
