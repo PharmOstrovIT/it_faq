@@ -2,7 +2,7 @@
 <style>
 body {margin:0;}
 
-ul {
+ul1 {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -13,11 +13,11 @@ ul {
     width: 100%;
 }
 
-li {
+li1 {
     float: left;
 }
 
-li a {
+li1 a {
     display: block;
     color: white;
     text-align: center;
@@ -25,7 +25,7 @@ li a {
     text-decoration: none;
 }
 
-li a:hover:not(.active) {
+li1 a:hover:not(.active) {
     color: white;
     background-color: #111;
 }
@@ -36,42 +36,42 @@ li a:hover:not(.active) {
 }
 </style>
 
-    <ul>
+    <ul1>
         {% if user.is_authenticated %}
 
-        <li class="nav-item">
+        <li1 class="nav-item">
           <a class="nav-link" href="/wiki">Home</a>
-        </li>
+        </li1>
 
-        <li class="nav-item">
+        <li1 class="nav-item">
           <a class="nav-link" href="/apteki">Список аптек</a>
-        </li>
+        </li1>
 
-        <li class="nav-item">
+        <li1 class="nav-item">
           <a class="nav-link" href="/printers">Заправка картриджей</a>
-        </li>
+        </li1>
 
-        <li style="float:right" class="nav-item">
+        <li1 style="float:right" class="nav-item">
           <a class="nav-link" href="/logout">Log out</a>
-        </li>
-        <li style="float:right" class="nav-item">
+        </li1>
+        <li1 style="float:right" class="nav-item">
           <a class="nav-link" href="/wiki">Welcome, {{user.username}}</a>
-        </li>
+        </li1>
 
 
         {% else %}
 
-        <li class="nav-item">
+        <li1 class="nav-item">
           <a class="nav-link" href="/">Home</a>
-        </li>
+        </li1>
 
-        <li style="float:right" class="nav-item">
+        <li1 style="float:right" class="nav-item">
           <a class="nav-link" href="/login">Log in</a>
-        </li>
+        </li1>
 
-        <li style="float:right" class="nav-item">
+        <li1 style="float:right" class="nav-item">
           <a class="nav-link" href="/register">Create an account</a>
-        </li>
+        </li1>
 
         {% endif %}
-    </ul>
+    </ul1>
