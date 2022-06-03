@@ -3,10 +3,27 @@
 
   {% block content %}
   <div style="padding:20px;margin-top:30px;height:1500px;">
-    <div class="text-center">
-          <p>
-          <p>
-          <h1>Тут будет список аптек и оборудование по ним!</h1><br>
-    </div>
+    <h1 align="center">Список аптек</h1>
+    <table class="table table-striped">
+      <thead>
+        <tr align="center">
+            <th scope="col">Наименование</th>
+            <th scope="col">Область</th>
+            <th scope="col">Город</th>
+            <th scope="col">Адрес</th>
+            <th scope="col">Городской телефон</th>
+            <th scope="col">Мобильный телефон</th>
+            <th scope="col">Организация</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in reader %}
+            <tr>
+                {% for x in row %} <td align="center">{{ x }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
   {% endblock %}

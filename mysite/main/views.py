@@ -1,3 +1,5 @@
+import psycopg2
+
 from django.shortcuts import render, redirect
 from .forms import NewUserForm
 from django.contrib.auth import login, authenticate, logout
@@ -12,6 +14,7 @@ from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.contrib import messages
+from credentials import *
 
 
 def homepage(request):
@@ -22,8 +25,41 @@ def wiki(request):
     return render(request=request, template_name="main/wiki.html")
 
 
+def get_data_from_apteka():
+    sql_request = (f"""
+                    SELECT name, region,city_name,address,phone,mobile_phone,organization 
+                    FROM public.apteka
+                    ORDER BY id ASC 
+    """)
+
+    try:
+        connection = psycopg2.connect(database=database,
+                                      user=username,
+                                      password=password,
+                                      host=host,
+                                      port=port
+                                      )
+
+        cursor_call_count = connection.cursor()
+        cursor_call_count.execute(str(sql_request))
+
+        apteks = cursor_call_count.fetchall()
+
+    except (Exception, Error) as error:
+        print("Ошибка при работе с PostgreSQL", error)
+
+    finally:
+        if connection:
+            cursor_call_count.close()
+            connection.close()
+
+    return apteks
+
+
 def apteki(request):
-    return render(request=request, template_name="main/apteki.html")
+    apteks_list = get_data_from_apteka()
+    return render(request, 'main/apteki.html',
+                  {'title': 'Список аптек', 'reader': apteks_list})
 
 
 def printers(request):
