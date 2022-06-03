@@ -59,7 +59,7 @@ def get_data_from_apteka():
 def apteki(request):
     apteks_list = get_data_from_apteka()
     return render(request, 'main/apteki.html',
-                  {'title': 'Список аптек', 'reader': apteks_list})
+                  {'title': 'Список аптек', 'apteks_list': apteks_list})
 
 
 def printers(request):

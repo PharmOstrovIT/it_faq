@@ -2,7 +2,7 @@
 
 
   {% block content %}
-  <div style="padding:20px;margin-top:30px;height:1500px;">
+  <div style="padding:20px;margin-top:30px;">
     <h1 align="center">Список аптек</h1>
     <table class="table table-striped">
       <thead>
@@ -17,9 +17,9 @@
         </tr>
       </thead>
       <tbody>
-        {% for row in reader %}
+        {% for apteka in apteks_list %}
             <tr>
-                {% for x in row %} <td align="center">{{ x }}</td>
+                {% for x in apteka %} <td align="center">{{ x }}</td>
                 {% endfor %}
             </tr>
         {% endfor %}
