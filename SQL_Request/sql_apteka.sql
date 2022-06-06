@@ -1,4 +1,4 @@
-CREATE TABLE public.apteka
+CREATE TABLE public.main_apteka
 (
     id serial NOT NULL,
     name varchar(12) NOT NULL,
@@ -13,11 +13,11 @@ CREATE TABLE public.apteka
 
 TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS public.apteka
+ALTER TABLE IF EXISTS public.main_apteka
     OWNER to postgres;
     
     
-CREATE TABLE public.equipment
+CREATE TABLE public.main_equipment
 (
     id serial NOT NULL,
     apteka_id int NOT NULL,
@@ -34,5 +34,5 @@ CREATE TABLE public.equipment
 
 TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS public.equipment
+ALTER TABLE IF EXISTS public.main_equipment
     OWNER to postgres;

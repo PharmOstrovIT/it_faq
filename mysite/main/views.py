@@ -30,7 +30,7 @@ def wiki(request):
 def get_data_from_apteka():
     sql_request = (f"""
                     SELECT name, region,city_name,address,phone,mobile_phone,organization 
-                    FROM public.apteka
+                    FROM public.main_apteka
                     ORDER BY id ASC 
     """)
 
