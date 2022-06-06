@@ -15,3 +15,24 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.apteka
     OWNER to postgres;
+    
+    
+CREATE TABLE public.equipment
+(
+    id serial NOT NULL,
+    apteka_id int NOT NULL,
+    equipment_type varchar(200) NOT NULL,
+    equipment_model varchar(200) NOT NULL,
+    serial_number varchar(200),
+    purchase_date date NOT NULL,
+    invoice_number varchar(200) NOT NULL,
+    invoice_date date NOT NULL,
+    purchase_org varchar(200) NOT NULL,
+    comments varchar(200) NOT NULL,
+    PRIMARY KEY (id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.equipment
+    OWNER to postgres;

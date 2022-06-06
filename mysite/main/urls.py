@@ -13,4 +13,5 @@ urlpatterns = [
     path("password_reset/", views.password_reset_request, name="password_reset"),
     path("apteki/", views.apteki, name="apteki"),
     path("printers/", views.printers, name="printers"),
+    path("equipment/", views.equipmentview, name='equipment'),
 ]

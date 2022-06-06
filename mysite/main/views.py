@@ -14,7 +14,9 @@ from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.contrib import messages
-from credentials import *
+from credentials import username as username_db, password as password_db, database, host, port
+from .forms import EquipmentForm
+from .models import Equipment
 
 
 def homepage(request):
@@ -34,8 +36,8 @@ def get_data_from_apteka():
 
     try:
         connection = psycopg2.connect(database=database,
-                                      user=username,
-                                      password=password,
+                                      user=username_db,
+                                      password=password_db,
                                       host=host,
                                       port=port
                                       )
@@ -135,3 +137,61 @@ def password_reset_request(request):
     password_reset_form = PasswordResetForm()
     return render(request=request, template_name="main/password/password_reset.html",
                   context={"password_reset_form": password_reset_form})
+
+
+def equipmentview_old(request):
+    if request.method == "POST":
+        form = EquipmentForm(request.POST)
+
+        if form.is_valid():
+
+            apteka_id = request.POST.get('apteka_id', '')
+            equipment_type = request.POST.get('equipment_type', '')
+            equipment_model = request.POST.get('equipment_model', '')
+            serial_number = request.POST.get('serial_number', '')
+            purchase_date = request.POST.get('purchase_date', '')
+            invoice_number = request.POST.get('invoice_number', '')
+            invoice_date = request.POST.get('invoice_date', '')
+            purchase_org = request.POST.get('purchase_org', '')
+            comments = request.POST.get('comments', '')
+
+            equipment_obj = Equipment(apteka_id=apteka_id,
+                                      equipment_type=equipment_type,
+                                      equipment_model=equipment_model,
+                                      serial_number=serial_number,
+                                      purchase_date=purchase_date,
+                                      invoice_number=invoice_number,
+                                      invoice_date=invoice_date,
+                                      purchase_org=purchase_org,
+                                      comments=comments)
+            equipment_obj.save()
+
+            return redirect('main:equipment')
+
+    else:
+        form = EquipmentForm()
+
+    return render(request=request, template_name="main/equipment.html", context={"equipment_form": form})
+
+    # return render(request, 'main/equipment.html', {'form': form})
+
+
+def equipmentview(request):
+    error_text = ''
+    if request.method == "POST":
+        form = EquipmentForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect('main:equipment')
+        else:
+            error_text = form.errors
+
+    form = EquipmentForm()
+
+    data = {
+        'form': form,
+        'error_text': error_text
+    }
+
+    return render(request, "main/equipment.html", data)
