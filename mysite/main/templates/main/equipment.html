@@ -14,10 +14,9 @@
       <form action="{% url 'main:equipment' %}" method="post">
         {% csrf_token %}
         <label for="apteka_id">Аптека:</label>{{ form.apteka_id }}<p>
-        <label for="equipment_type">Тип оборудования::</label>{{ form.equipment_type }}<p>
+        <label for="equipment_type">Тип оборудования:</label>{{ form.equipment_type }}<p>
         <label for="equipment_model">Модель оборудования:</label>{{ form.equipment_model }}<p>
         <label for="serial_number">Серийный номер:</label>{{ form.serial_number }}<p>
-        <label for="purchase_date">Дата закупки:</label>{{ form.purchase_date }}<p>
         <label for="invoice_number">Номер накладной:</label>{{ form.invoice_number }}<p>
         <label for="invoice_date">Дата накладной:</label>{{ form.invoice_date }}<p>
         <label for="purchase_org">Продавец:</label>{{ form.purchase_org }}<p>
