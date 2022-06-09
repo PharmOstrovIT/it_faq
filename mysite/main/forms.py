@@ -26,7 +26,7 @@ class NewUserForm(UserCreationForm):
 class EquipmentForm(ModelForm):
     class Meta:
         model = Equipment
-        fields = ['apteka_id', 'equipment_type', 'equipment_model', 'serial_number', 'purchase_date', 'invoice_number',
+        fields = ['apteka_id', 'equipment_type', 'equipment_model', 'serial_number', 'invoice_number',
                   'invoice_date', 'purchase_org', 'comments']
 
         widgets = {
