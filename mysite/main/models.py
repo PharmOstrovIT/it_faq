@@ -7,10 +7,10 @@ class Equipment(models.Model):
     equipment_type = models.CharField(max_length=200)
     equipment_model = models.CharField(max_length=200)
     serial_number = models.CharField(max_length=200, unique=True)
-    invoice_number = models.CharField(max_length=200)
-    invoice_date = models.DateField()
-    purchase_org = models.CharField(max_length=200)
-    comments = models.CharField(max_length=200)
+    invoice_number = models.CharField(null=True, blank=True, max_length=200)
+    invoice_date = models.DateField(null=True, blank=True)
+    purchase_org = models.CharField(null=True, blank=True, max_length=200)
+    comments = models.CharField(null=True, blank=True, max_length=200)
 
     def __str__(self):
         return self.apteka_id
