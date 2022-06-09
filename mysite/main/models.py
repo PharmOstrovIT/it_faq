@@ -7,7 +7,6 @@ class Equipment(models.Model):
     equipment_type = models.CharField(max_length=200)
     equipment_model = models.CharField(max_length=200)
     serial_number = models.CharField(max_length=200, unique=True)
-    purchase_date = models.DateField()
     invoice_number = models.CharField(max_length=200)
     invoice_date = models.DateField()
     purchase_org = models.CharField(max_length=200)
