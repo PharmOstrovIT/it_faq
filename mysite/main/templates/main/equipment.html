@@ -10,6 +10,7 @@
     }
     .flex-wrap {display:flex;}
     .flex-wrap label {width:200px;margin-right:auto;}
+    .flex-wrap button {width:200px;margin-left:auto;}
     .flex-wrap input {width:calc(100% - 250px);}
     </style>
     <div style="padding:5px;margin-top:30px;">
@@ -24,7 +25,7 @@
         <label for="invoice_date">Дата накладной:</label>{{ form.invoice_date }}<p class="flex-wrap">
         <label for="purchase_org">Продавец:</label>{{ form.purchase_org }}<p class="flex-wrap">
         <label for="comments">Комментарии:</label>{{ form.comments }}<p class="flex-wrap">
-        <span>{{ error_text }}</span>
+        <span>{{ error_text }}</span><p class="flex-wrap">
         <button class="btn btn-success" type="submit">Добавить оборудование</button>
 
       </form>
