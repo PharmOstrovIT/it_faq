@@ -17,7 +17,6 @@ from django.utils.encoding import force_bytes
 from django.contrib import messages
 from credentials import username as username_db, password as password_db, database, host, port
 from .forms import EquipmentForm
-from .models import Equipment
 
 
 def homepage(request):
@@ -29,8 +28,9 @@ def wiki(request):
 
 
 def get_data_from_apteka():
+    apteks = []
     sql_request = (f"""
-                    SELECT name, region,city_name,address,phone,mobile_phone,organization 
+                    SELECT name, region, city_name, address, phone, mobile_phone, organization 
                     FROM public.main_apteka
                     ORDER BY id ASC 
     """)
