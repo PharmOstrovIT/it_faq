@@ -1,17 +1,19 @@
 import psycopg2
-from credentials import *
+from credentials import username as username_db, password as password_db, database, host, port
 
 
-def get_data_apteka():
+def get_data_equipment(apteka_id):
     sql_request = (f"""
-                SELECT * FROM apteka
-                ORDER BY id ASC 
+            SELECT equipment_type, equipment_model, serial_number, invoice_number, invoice_date, purchase_org, comments
+            FROM main_equipment 
+            WHERE apteka_id = '{apteka_id}' 
+            ORDER BY id ASC
     """)
 
     try:
         connection = psycopg2.connect(database=database,
-                                      user=username,
-                                      password=password,
+                                      user=username_db,
+                                      password=password_db,
                                       host=host,
                                       port=port
                                       )
@@ -19,7 +21,7 @@ def get_data_apteka():
         cursor_call_count = connection.cursor()
         cursor_call_count.execute(str(sql_request))
 
-        apteks = cursor_call_count.fetchall()
+        equipment_list = cursor_call_count.fetchall()
 
     except (Exception, Error) as error:
         print("Ошибка при работе с PostgreSQL", error)
@@ -29,11 +31,11 @@ def get_data_apteka():
             cursor_call_count.close()
             connection.close()
 
-    return apteks
+    return equipment_list
 
 
 def main():
-    apteks_list = get_data_apteka()
+    apteks_list = get_data_equipment(1)
     print(apteks_list)
 
 

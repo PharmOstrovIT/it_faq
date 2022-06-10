@@ -1,4 +1,5 @@
 import psycopg2
+from django.db import Error
 
 from django.shortcuts import render, redirect
 from .forms import NewUserForm
@@ -139,43 +140,6 @@ def password_reset_request(request):
                   context={"password_reset_form": password_reset_form})
 
 
-def equipmentview_old(request):
-    if request.method == "POST":
-        form = EquipmentForm(request.POST)
-
-        if form.is_valid():
-
-            apteka_id = request.POST.get('apteka_id', '')
-            equipment_type = request.POST.get('equipment_type', '')
-            equipment_model = request.POST.get('equipment_model', '')
-            serial_number = request.POST.get('serial_number', '')
-            purchase_date = request.POST.get('purchase_date', '')
-            invoice_number = request.POST.get('invoice_number', '')
-            invoice_date = request.POST.get('invoice_date', '')
-            purchase_org = request.POST.get('purchase_org', '')
-            comments = request.POST.get('comments', '')
-
-            equipment_obj = Equipment(apteka_id=apteka_id,
-                                      equipment_type=equipment_type,
-                                      equipment_model=equipment_model,
-                                      serial_number=serial_number,
-                                      purchase_date=purchase_date,
-                                      invoice_number=invoice_number,
-                                      invoice_date=invoice_date,
-                                      purchase_org=purchase_org,
-                                      comments=comments)
-            equipment_obj.save()
-
-            return redirect('main:equipment')
-
-    else:
-        form = EquipmentForm()
-
-    return render(request=request, template_name="main/equipment.html", context={"equipment_form": form})
-
-    # return render(request, 'main/equipment.html', {'form': form})
-
-
 def equipmentview(request):
     error_text = ''
     if request.method == "POST":
@@ -195,3 +159,42 @@ def equipmentview(request):
     }
 
     return render(request, "main/equipment.html", data)
+
+
+def get_data_equipment(apteka_id):
+    equipments_list = []
+    sql_request = (f"""
+            SELECT equipment_type, equipment_model, serial_number, invoice_number, invoice_date, purchase_org, comments
+            FROM main_equipment 
+            WHERE apteka_id = '{apteka_id}' 
+            ORDER BY id ASC
+    """)
+
+    try:
+        connection = psycopg2.connect(database=database,
+                                      user=username_db,
+                                      password=password_db,
+                                      host=host,
+                                      port=port
+                                      )
+
+        cursor_call_count = connection.cursor()
+        cursor_call_count.execute(str(sql_request))
+
+        equipments_list = cursor_call_count.fetchall()
+
+    except (Exception, Error) as error:
+        print("Ошибка при работе с PostgreSQL", error)
+
+    finally:
+        if connection:
+            cursor_call_count.close()
+            connection.close()
+
+    return equipments_list
+
+
+def list_apteka_equipment(request):
+    obj_id = request.GET.get('object')
+    apteka_equipment = get_data_equipment(obj_id)
+    return render(request, 'main/equipment_list.html', {'apteka_equipment': apteka_equipment})

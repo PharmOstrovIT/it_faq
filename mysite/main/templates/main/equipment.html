@@ -2,7 +2,7 @@
 
 
   {% block content %}
-<style xmlns="http://www.w3.org/1999/html">
+  <style xmlns="http://www.w3.org/1999/html">
     form {
         margin-left: 22%;
         width: 50%;
@@ -13,6 +13,16 @@
     .flex-wrap button {width:250px;margin-left:auto;}
     .flex-wrap input {width:calc(100% - 250px);}
     </style>
+    <script>
+      $(document).ready(function() {
+              $(document).keypress(function(event) {
+                  if(event.keyCode==13){
+                      $(event.target).parent().next().find('input').focus();
+                      event.preventDefault();
+                  }
+              });
+          });
+    </script>
     <div style="padding:5px;margin-top:30px;">
 
       <form action="{% url 'main:equipment' %}" method="post">

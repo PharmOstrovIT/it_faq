@@ -43,7 +43,7 @@ class EquipmentForm(ModelForm):
             'invoice_date': forms.DateInput(attrs={'class': 'form-control', 'id': 'invoice_date',
                                                    'name': 'invoice_date', 'value': '2022-01-01'}),
             'purchase_org': forms.TextInput(attrs={'class': 'form-control', 'id': 'purchase_org',
-                                                   'name': 'purchase_org', 'value': 'ООО "Вася пупкин и компания"'}),
+                                                   'name': 'purchase_org', 'value': 'Не указан'}),
             'comments': forms.TextInput(attrs={'class': 'form-control', 'id': 'comments',
                                                'name': 'comments', 'value': 'No Comments'}),
         }
