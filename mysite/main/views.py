@@ -28,6 +28,7 @@ def wiki(request):
 
 
 def get_data_from_apteka():
+    cursor_call_count, connection = None, None
     apteks = []
     sql_request = (f"""
                     SELECT name, region, city_name, address, phone, mobile_phone, organization 
@@ -52,7 +53,7 @@ def get_data_from_apteka():
         print("Ошибка при работе с PostgreSQL", error)
 
     finally:
-        if connection:
+        if connection is not None:
             cursor_call_count.close()
             connection.close()
 
@@ -174,6 +175,7 @@ def equipmentview(request):
 
 
 def get_data_equipment(apteka_id):
+    cursor_call_count, connection = None, None
     equipments_list = []
     sql_request = (f"""
             SELECT equipment_type, equipment_model, serial_number, invoice_number, invoice_date, purchase_org, comments
@@ -199,7 +201,7 @@ def get_data_equipment(apteka_id):
         print("Ошибка при работе с PostgreSQL", error)
 
     finally:
-        if connection:
+        if connection is not None:
             cursor_call_count.close()
             connection.close()
 
@@ -213,6 +215,7 @@ def list_apteka_equipment(request):
 
 
 def get_data_lan(apteka_id):
+    cursor_call_count, connection = None, None
     lan_list = []
     sql_request = (f"""
             SELECT service_name, service_ip, service_login, service_pass, service_info
@@ -238,7 +241,7 @@ def get_data_lan(apteka_id):
         print("Ошибка при работе с PostgreSQL", error)
 
     finally:
-        if connection:
+        if connection is not None:
             cursor_call_count.close()
             connection.close()
 
