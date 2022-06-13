@@ -221,7 +221,7 @@ def get_data_lan(apteka_id):
             SELECT service_name, service_ip, service_login, service_pass, service_info
             FROM main_security 
             WHERE apteka_id = '{apteka_id}' 
-            ORDER BY id ASC
+            ORDER BY service_name ASC
     """)
 
     try:

@@ -3,7 +3,6 @@ from . import views
 
 app_name = "main"
 
-
 urlpatterns = [
     path("", views.homepage, name="homepage"),
     path("wiki/", views.wiki, name="wiki"),

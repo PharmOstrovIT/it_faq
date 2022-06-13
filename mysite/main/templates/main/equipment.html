@@ -27,26 +27,26 @@
 
       <form action="{% url 'main:equipment' %}" method="post">
         {% csrf_token %}<p class="flex-wrap">
-        <label for="apteka_id">Аптека:</label>{{ form1.apteka_id }}<p class="flex-wrap">
-        <label for="equipment_type">Тип оборудования:</label>{{ form1.equipment_type }}<p class="flex-wrap">
-        <label for="equipment_model">Модель оборудования:</label>{{ form1.equipment_model }}<p class="flex-wrap">
-        <label for="serial_number">Серийный номер:</label>{{ form1.serial_number }}<p class="flex-wrap">
-        <label for="invoice_number">Номер накладной:</label>{{ form1.invoice_number }}<p class="flex-wrap">
-        <label for="invoice_date">Дата накладной:</label>{{ form1.invoice_date }}<p class="flex-wrap">
-        <label for="purchase_org">Продавец:</label>{{ form1.purchase_org }}<p class="flex-wrap">
-        <label for="comments">Комментарии:</label>{{ form1.comments }}<p class="flex-wrap">
+        <label>Аптека:</label>{{ form1.apteka_id }}<p class="flex-wrap">
+        <label>Тип оборудования:</label>{{ form1.equipment_type }}<p class="flex-wrap">
+        <label>Модель оборудования:</label>{{ form1.equipment_model }}<p class="flex-wrap">
+        <label>Серийный номер:</label>{{ form1.serial_number }}<p class="flex-wrap">
+        <label>Номер накладной:</label>{{ form1.invoice_number }}<p class="flex-wrap">
+        <label>Дата накладной:</label>{{ form1.invoice_date }}<p class="flex-wrap">
+        <label>Продавец:</label>{{ form1.purchase_org }}<p class="flex-wrap">
+        <label>Комментарии:</label>{{ form1.comments }}<p class="flex-wrap">
         <span>{{ error_text }}</span>
         <button class="btn btn-success" type="submit">Добавить оборудование</button>
       </form>
 
       <form action="{% url 'main:equipment' %}" method="post">
         {% csrf_token %}<p class="flex-wrap">
-        <label for="apteka_id">Аптека:</label>{{ form2.apteka_id }}<p class="flex-wrap">
-        <label for="service_name">Наименование:</label>{{ form2.service_name }}<p class="flex-wrap">
-        <label for="service_ip">IP адрес:</label>{{ form2.service_ip }}<p class="flex-wrap">
-        <label for="service_login">Логин:</label>{{ form2.service_login }}<p class="flex-wrap">
-        <label for="service_pass">Пароль:</label>{{ form2.service_pass }}<p class="flex-wrap">
-        <label for="service_info">Доп. информация:</label>{{ form2.service_info }}<p class="flex-wrap">
+        <label>Аптека:</label>{{ form2.apteka_id }}<p class="flex-wrap">
+        <label>Наименование:</label>{{ form2.service_name }}<p class="flex-wrap">
+        <label>IP адрес:</label>{{ form2.service_ip }}<p class="flex-wrap">
+        <label>Логин:</label>{{ form2.service_login }}<p class="flex-wrap">
+        <label>Пароль:</label>{{ form2.service_pass }}<p class="flex-wrap">
+        <label>Доп. информация:</label>{{ form2.service_info }}<p class="flex-wrap">
         <span>{{ error_text }}</span>
         <button class="btn btn-success" type="submit">Добавить информацию</button>
       </form>
