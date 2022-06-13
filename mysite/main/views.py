@@ -31,7 +31,7 @@ def get_data_from_apteka():
     cursor_call_count, connection = None, None
     apteks = []
     sql_request = (f"""
-                    SELECT name, region, city_name, address, phone, mobile_phone, organization 
+                    SELECT id, name, region, city_name, address, phone, mobile_phone, organization 
                     FROM public.main_apteka
                     ORDER BY id ASC 
     """)
@@ -175,6 +175,8 @@ def equipmentview(request):
 
 
 def get_data_equipment(apteka_id):
+    if apteka_id is None:
+        apteka_id = '1'
     cursor_call_count, connection = None, None
     equipments_list = []
     sql_request = (f"""
@@ -215,6 +217,8 @@ def list_apteka_equipment(request):
 
 
 def get_data_lan(apteka_id):
+    if apteka_id is None:
+        apteka_id = '1'
     cursor_call_count, connection = None, None
     lan_list = []
     sql_request = (f"""
