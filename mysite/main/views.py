@@ -142,8 +142,7 @@ def password_reset_request(request):
 
 
 def equipmentview(request):
-    error_text1 = ''
-    error_text2 = ''
+    error_text = ''
 
     if request.method == "POST":
         form1 = EquipmentForm(request.POST)
@@ -152,14 +151,11 @@ def equipmentview(request):
         if form1.is_valid():
             form1.save()
             return redirect('main:equipment')
-        else:
-            error_text1 = form1.errors
-
-        if form2.is_valid():
+        elif form2.is_valid():
             form2.save()
             return redirect('main:equipment')
         else:
-            error_text2 = form2.errors
+            error_text = form1.errors, form2.errors
 
     form1 = EquipmentForm()
     form2 = LanForm()
@@ -167,8 +163,7 @@ def equipmentview(request):
     data = {
         'form1': form1,
         'form2': form2,
-        'error_text1': error_text1,
-        'error_text2': error_text2
+        'error_text': error_text,
     }
 
     return render(request, "main/equipment.html", data)

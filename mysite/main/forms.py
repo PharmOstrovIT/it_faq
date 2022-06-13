@@ -60,7 +60,7 @@ class LanForm(ModelForm):
             'service_name': forms.TextInput(attrs={'class': 'form-control', 'id': 'service_name',
                                                    'name': 'service_name', 'value': 'Принтер'}),
             'service_ip': forms.TextInput(attrs={'class': 'form-control', 'id': 'service_ip',
-                                                 'name': 'service_ip', 'value': '127.0.0.1'}),
+                                                 'name': 'service_ip', 'value': '192.168.1.1'}),
             'service_login': forms.TextInput(attrs={'class': 'form-control', 'id': 'service_login',
                                                     'name': 'service_login', 'value': 'Login'}),
             'service_pass': forms.TextInput(attrs={'class': 'form-control', 'id': 'service_pass',
