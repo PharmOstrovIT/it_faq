@@ -16,7 +16,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.contrib import messages
 from credentials import username as username_db, password as password_db, database, host, port
-from .forms import EquipmentForm
+from .forms import EquipmentForm, LanForm
 
 
 def homepage(request):
@@ -141,21 +141,33 @@ def password_reset_request(request):
 
 
 def equipmentview(request):
-    error_text = ''
-    if request.method == "POST":
-        form = EquipmentForm(request.POST)
+    error_text1 = ''
+    error_text2 = ''
 
-        if form.is_valid():
-            form.save()
+    if request.method == "POST":
+        form1 = EquipmentForm(request.POST)
+        form2 = LanForm(request.POST)
+
+        if form1.is_valid():
+            form1.save()
             return redirect('main:equipment')
         else:
-            error_text = form.errors
+            error_text1 = form1.errors
 
-    form = EquipmentForm()
+        if form2.is_valid():
+            form2.save()
+            return redirect('main:equipment')
+        else:
+            error_text2 = form2.errors
+
+    form1 = EquipmentForm()
+    form2 = LanForm()
 
     data = {
-        'form': form,
-        'error_text': error_text
+        'form1': form1,
+        'form2': form2,
+        'error_text1': error_text1,
+        'error_text2': error_text2
     }
 
     return render(request, "main/equipment.html", data)
@@ -198,3 +210,42 @@ def list_apteka_equipment(request):
     obj_id = request.GET.get('object')
     apteka_equipment = get_data_equipment(obj_id)
     return render(request, 'main/equipment_list.html', {'apteka_equipment': apteka_equipment})
+
+
+def get_data_lan(apteka_id):
+    lan_list = []
+    sql_request = (f"""
+            SELECT service_name, service_ip, service_login, service_pass, service_info
+            FROM main_security 
+            WHERE apteka_id = '{apteka_id}' 
+            ORDER BY id ASC
+    """)
+
+    try:
+        connection = psycopg2.connect(database=database,
+                                      user=username_db,
+                                      password=password_db,
+                                      host=host,
+                                      port=port
+                                      )
+
+        cursor_call_count = connection.cursor()
+        cursor_call_count.execute(str(sql_request))
+
+        lan_list = cursor_call_count.fetchall()
+
+    except (Exception, Error) as error:
+        print("Ошибка при работе с PostgreSQL", error)
+
+    finally:
+        if connection:
+            cursor_call_count.close()
+            connection.close()
+
+    return lan_list
+
+
+def list_apteka_lan(request):
+    obj_id = request.GET.get('object')
+    apteka_lan = get_data_lan(obj_id)
+    return render(request, 'main/lan_list.html', {'apteka_lan': apteka_lan})

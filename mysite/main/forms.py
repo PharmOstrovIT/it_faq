@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 
-from .models import Equipment
+from .models import Equipment, Security
 
 
 class NewUserForm(UserCreationForm):
@@ -46,4 +46,25 @@ class EquipmentForm(ModelForm):
                                                    'name': 'purchase_org', 'value': 'Не указан'}),
             'comments': forms.TextInput(attrs={'class': 'form-control', 'id': 'comments',
                                                'name': 'comments', 'value': 'No Comments'}),
+        }
+
+
+class LanForm(ModelForm):
+    class Meta:
+        model = Security
+        fields = ['apteka_id', 'service_name', 'service_ip', 'service_login', 'service_pass', 'service_info']
+
+        widgets = {
+            'apteka_id': forms.TextInput(attrs={'class': 'form-control', 'id': 'apteka_id',
+                                                'name': 'apteka_id', 'value': '1'}),
+            'service_name': forms.TextInput(attrs={'class': 'form-control', 'id': 'service_name',
+                                                   'name': 'service_name', 'value': 'Принтер'}),
+            'service_ip': forms.TextInput(attrs={'class': 'form-control', 'id': 'service_ip',
+                                                 'name': 'service_ip', 'value': '127.0.0.1'}),
+            'service_login': forms.TextInput(attrs={'class': 'form-control', 'id': 'service_login',
+                                                    'name': 'service_login', 'value': 'Login'}),
+            'service_pass': forms.TextInput(attrs={'class': 'form-control', 'id': 'service_pass',
+                                                   'name': 'service_pass', 'value': 'Password'}),
+            'service_info': forms.TextInput(attrs={'class': 'form-control', 'id': 'service_info',
+                                                   'name': 'service_info', 'value': 'Нет информации'}),
         }

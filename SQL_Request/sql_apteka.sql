@@ -36,3 +36,21 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.main_equipment
     OWNER to postgres;
+    
+    
+CREATE TABLE public.main_security    
+(
+    id serial NOT NULL,
+    apteka_id int,
+    service_name varchar(200) COLLATE pg_catalog."default",
+    service_ip varchar(200) COLLATE pg_catalog."default",
+    service_login varchar(200) COLLATE pg_catalog."default",
+    service_pass varchar(200) COLLATE pg_catalog."default",
+    service_info varchar(200) COLLATE pg_catalog."default",
+    PRIMARY KEY (id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.main_security
+    OWNER to postgres;

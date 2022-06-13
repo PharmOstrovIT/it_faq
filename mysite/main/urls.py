@@ -15,4 +15,5 @@ urlpatterns = [
     path("printers/", views.printers, name="printers"),
     path("equipment/", views.equipmentview, name='equipment'),
     path("equipment_list/", views.list_apteka_equipment, name='equipment_list'),
+    path("lan_list/", views.list_apteka_lan, name='lan_list'),
 ]

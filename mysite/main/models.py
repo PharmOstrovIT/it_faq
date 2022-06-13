@@ -18,3 +18,20 @@ class Equipment(models.Model):
     class Meta:
         verbose_name = 'Оборудование'
         verbose_name_plural = 'Оборудование'
+
+
+class Security(models.Model):
+
+    apteka_id = models.DecimalField(max_digits=10, decimal_places=0)
+    service_name = models.CharField(max_length=200)
+    service_ip = models.CharField(max_length=200, unique=True)
+    service_login = models.CharField(max_length=200)
+    service_pass = models.CharField(max_length=200)
+    service_info = models.CharField(null=True, blank=True, max_length=200)
+
+    def __str__(self):
+        return self.apteka_id
+
+    class Meta:
+        verbose_name = 'Схема локальной сети'
+        verbose_name_plural = 'Схема локальной сети'
