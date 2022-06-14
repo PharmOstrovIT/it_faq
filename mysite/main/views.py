@@ -156,12 +156,16 @@ def equipmentview(request):
         else:
             error_text = form1.errors, form2.errors
 
+    # location_list = LocationChoiceField()
+    # query_results = Apteka.objects.all()
     form1 = EquipmentForm()
     form2 = LanForm()
 
     data = {
         'form1': form1,
         'form2': form2,
+        # 'location_list': location_list,
+        # 'query_results': query_results,
         'error_text': error_text,
     }
 

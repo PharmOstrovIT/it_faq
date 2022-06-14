@@ -29,6 +29,12 @@ class EquipmentForm(ModelForm):
         fields = ['apteka_id', 'equipment_type', 'equipment_model', 'serial_number', 'invoice_number',
                   'invoice_date', 'purchase_org', 'comments']
 
+        locations = forms.ModelChoiceField(
+            queryset=Apteka.objects.values_list("name", flat=True).order_by('id'),
+            empty_label=None,
+            required=True,
+            label='Выберите аптеку')
+
         widgets = {
             'apteka_id': forms.TextInput(attrs={'class': 'form-control', 'id': 'apteka_id',
                                                 'name': 'apteka_id', 'value': '1'}),
@@ -54,6 +60,12 @@ class LanForm(ModelForm):
         model = Security
         fields = ['apteka_id', 'service_name', 'service_ip', 'service_login', 'service_pass', 'service_info']
 
+        locations = forms.ModelChoiceField(
+            queryset=Apteka.objects.values_list("name", flat=True).order_by('id'),
+            empty_label=None,
+            required=True,
+            label='Выберите аптеку')
+
         widgets = {
             'apteka_id': forms.TextInput(attrs={'class': 'form-control', 'id': 'apteka_id',
                                                 'name': 'apteka_id', 'value': '1'}),
@@ -73,6 +85,7 @@ class LanForm(ModelForm):
 class LocationChoiceField(forms.Form):
     locations = forms.ModelChoiceField(
         queryset=Apteka.objects.values_list("name", flat=True).order_by('id'),
+        # queryset=Apteka.objects.values_list("name", flat=True).distinct().order_by('id'),
         empty_label=None,
         required=True,
         label='Выберите аптеку')
