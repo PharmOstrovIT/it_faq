@@ -39,6 +39,7 @@ class Security(models.Model):
 
 class Apteka(models.Model):
 
+    objects = None
     id = models.DecimalField(max_digits=10, decimal_places=0, primary_key=True)
     name = models.CharField(max_length=200)
 

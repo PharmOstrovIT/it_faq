@@ -71,7 +71,8 @@ class LanForm(ModelForm):
 
 
 class LocationChoiceField(forms.Form):
-
     locations = forms.ModelChoiceField(
-        queryset=Apteka.objects.values_list("name", flat=True).order_by('id'), empty_label=None
-    )
+        queryset=Apteka.objects.values_list("name", flat=True).order_by('id'),
+        empty_label=None,
+        required=True,
+        label='Выберите аптеку')
