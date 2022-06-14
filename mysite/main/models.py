@@ -35,3 +35,17 @@ class Security(models.Model):
     class Meta:
         verbose_name = 'Схема локальной сети'
         verbose_name_plural = 'Схема локальной сети'
+
+
+class Apteka(models.Model):
+
+    id = models.DecimalField(max_digits=10, decimal_places=0, primary_key=True)
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.id
+
+    class Meta:
+        managed = False
+        verbose_name = 'Аптека'
+        verbose_name_plural = 'Аптеки'

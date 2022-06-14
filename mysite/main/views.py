@@ -2,13 +2,11 @@ import psycopg2
 from django.db import Error
 
 from django.shortcuts import render, redirect
-from .forms import NewUserForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse
 from django.contrib.auth.forms import PasswordResetForm
-from django.contrib.auth.models import User
 from django.template.loader import render_to_string
 from django.db.models.query_utils import Q
 from django.utils.http import urlsafe_base64_encode
@@ -16,7 +14,8 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.contrib import messages
 from credentials import username as username_db, password as password_db, database, host, port
-from .forms import EquipmentForm, LanForm
+from .forms import *
+from .models import *
 
 
 def homepage(request):
@@ -247,7 +246,57 @@ def get_data_lan(apteka_id):
     return lan_list
 
 
+# def list_apteka_lan(request):
+#     obj_id = request.GET.get('object')
+#     apteka_lan = get_data_lan(obj_id)
+#     return render(request, 'main/lan_list_old.html', {'apteka_lan': apteka_lan})
+
+
+def get_apteka_id(apteka_name):
+    if apteka_name is None:
+        apteka_name = 'Аптека №1'
+    cursor_call_count, connection = None, None
+    apteka_id = []
+    sql_request = (f"""
+                        SELECT id 
+                        FROM public.main_apteka
+                        WHERE name = '{apteka_name}'
+        """)
+
+    try:
+        connection = psycopg2.connect(database=database,
+                                      user=username_db,
+                                      password=password_db,
+                                      host=host,
+                                      port=port
+                                      )
+
+        cursor_call_count = connection.cursor()
+        cursor_call_count.execute(str(sql_request))
+
+        apteka_id = cursor_call_count.fetchall()
+
+    except (Exception, Error) as error:
+        print("Ошибка при работе с PostgreSQL", error)
+
+    finally:
+        if connection is not None:
+            cursor_call_count.close()
+            connection.close()
+
+    return apteka_id[0][0]
+
+
 def list_apteka_lan(request):
-    obj_id = request.GET.get('object')
-    apteka_lan = get_data_lan(obj_id)
-    return render(request, 'main/lan_list.html', {'apteka_lan': apteka_lan})
+    obj_id = request.GET.get('locations')
+    apteka_id = get_apteka_id(obj_id)
+    apteka_lan = get_data_lan(apteka_id)
+    query_results = Apteka.objects.all()
+    location_list = LocationChoiceField()
+
+    context = {
+        'query_results': query_results,
+        'location_list': location_list,
+        'apteka_lan': apteka_lan,
+    }
+    return render(request, 'main/lan_list.html', context)

@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 
-from .models import Equipment, Security
+from .models import *
 
 
 class NewUserForm(UserCreationForm):
@@ -68,3 +68,10 @@ class LanForm(ModelForm):
             'service_info': forms.TextInput(attrs={'class': 'form-control', 'id': 'service_info',
                                                    'name': 'service_info', 'value': 'Нет информации'}),
         }
+
+
+class LocationChoiceField(forms.Form):
+
+    locations = forms.ModelChoiceField(
+        queryset=Apteka.objects.values_list("name", flat=True).order_by('id'), empty_label=None
+    )
