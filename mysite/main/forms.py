@@ -24,68 +24,65 @@ class NewUserForm(UserCreationForm):
 
 
 class EquipmentForm(ModelForm):
+    """ Форма для добавления оборудования """
+
     class Meta:
         model = Equipment
         fields = ['apteka_id', 'equipment_type', 'equipment_model', 'serial_number', 'invoice_number',
                   'invoice_date', 'purchase_org', 'comments']
 
-        locations = forms.ModelChoiceField(
-            queryset=Apteka.objects.values_list("name", flat=True).order_by('id'),
-            empty_label=None,
-            required=True,
-            label='Выберите аптеку')
-
         widgets = {
             'apteka_id': forms.TextInput(attrs={'class': 'form-control', 'id': 'apteka_id',
-                                                'name': 'apteka_id', 'value': '1'}),
+                                                'name': 'apteka_id', 'placeholder': '1'}),
             'equipment_type': forms.TextInput(attrs={'class': 'form-control', 'id': 'equipment_type',
-                                                     'name': 'equipment_type', 'value': 'Принтер'}),
+                                                     'name': 'equipment_type', 'placeholder': 'Принтер'}),
             'equipment_model': forms.TextInput(attrs={'class': 'form-control', 'id': 'equipment_model',
-                                                      'name': 'equipment_model', 'value': 'Xerox 3025'}),
+                                                      'name': 'equipment_model', 'placeholder': 'Xerox 3025'}),
             'serial_number': forms.TextInput(attrs={'class': 'form-control', 'id': 'serial_number',
-                                                    'name': 'serial_number', 'value': 'Номер отсутствует'}),
+                                                    'name': 'serial_number', 'placeholder': 'Номер отсутствует'}),
             'invoice_number': forms.TextInput(attrs={'class': 'form-control', 'id': 'invoice_number',
-                                                     'name': 'invoice_number', 'value': '1234567890'}),
+                                                     'name': 'invoice_number', 'placeholder': '1234567890'}),
             'invoice_date': forms.DateInput(attrs={'class': 'form-control', 'id': 'invoice_date',
-                                                   'name': 'invoice_date', 'value': '2022-01-01'}),
+                                                   'name': 'invoice_date', 'placeholder': '2022-01-01'}),
             'purchase_org': forms.TextInput(attrs={'class': 'form-control', 'id': 'purchase_org',
-                                                   'name': 'purchase_org', 'value': 'Не указан'}),
+                                                   'name': 'purchase_org', 'placeholder': 'Не указан'}),
             'comments': forms.TextInput(attrs={'class': 'form-control', 'id': 'comments',
-                                               'name': 'comments', 'value': 'No Comments'}),
+                                               'name': 'comments', 'placeholder': 'No Comments'}),
         }
 
 
 class LanForm(ModelForm):
+    """ Форма для локальной сети """
+
     class Meta:
         model = Security
         fields = ['apteka_id', 'service_name', 'service_ip', 'service_login', 'service_pass', 'service_info']
 
-        locations = forms.ModelChoiceField(
-            queryset=Apteka.objects.values_list("name", flat=True).order_by('id'),
-            empty_label=None,
-            required=True,
-            label='Выберите аптеку')
-
         widgets = {
-            'apteka_id': forms.TextInput(attrs={'class': 'form-control', 'id': 'apteka_id',
-                                                'name': 'apteka_id', 'value': '1'}),
+
+            'apteka_id': forms.TextInput(attrs={'class': 'form-control select', 'id': 'apteka_id',
+                                                'name': 'apteka_id', 'placeholder': '1'}),
             'service_name': forms.TextInput(attrs={'class': 'form-control', 'id': 'service_name',
-                                                   'name': 'service_name', 'value': 'Принтер'}),
+                                                   'name': 'service_name', 'placeholder': 'Принтер'}),
             'service_ip': forms.TextInput(attrs={'class': 'form-control', 'id': 'service_ip',
-                                                 'name': 'service_ip', 'value': '192.168.1.1'}),
+                                                 'name': 'service_ip', 'placeholder': '192.168.1.1'}),
             'service_login': forms.TextInput(attrs={'class': 'form-control', 'id': 'service_login',
-                                                    'name': 'service_login', 'value': 'Login'}),
+                                                    'name': 'service_login', 'placeholder': 'Login'}),
             'service_pass': forms.TextInput(attrs={'class': 'form-control', 'id': 'service_pass',
-                                                   'name': 'service_pass', 'value': 'Password'}),
+                                                   'name': 'service_pass', 'placeholder': 'Password'}),
             'service_info': forms.TextInput(attrs={'class': 'form-control', 'id': 'service_info',
-                                                   'name': 'service_info', 'value': 'Нет информации'}),
+                                                   'name': 'service_info', 'placeholder': 'Нет информации'}),
         }
 
 
 class LocationChoiceField(forms.Form):
+    """ Получаем все названия аптек из базы данных и записываем их в переменную locations
+    для дальнейшего использования в выпадающем списке.
+    Если надо получить список уникальных значений добавляем distinct() в конец запроса.
+    """
+
     locations = forms.ModelChoiceField(
         queryset=Apteka.objects.values_list("name", flat=True).order_by('id'),
-        # queryset=Apteka.objects.values_list("name", flat=True).distinct().order_by('id'),
         empty_label=None,
         required=True,
         label='Выберите аптеку')
