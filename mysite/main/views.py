@@ -205,9 +205,19 @@ def get_data_equipment(apteka_id):
 
 
 def list_apteka_equipment(request):
-    obj_id = request.GET.get('object')
-    apteka_equipment = get_data_equipment(obj_id)
-    return render(request, 'main/equipment_list.html', {'apteka_equipment': apteka_equipment})
+    obj_id = request.GET.get('locations')
+    apteka_id = get_apteka_id(obj_id)
+    apteka_equipment = get_data_equipment(apteka_id)
+    query_results = Apteka.objects.all()
+    location_list = LocationChoiceField()
+
+    context = {
+        'query_results': query_results,
+        'location_list': location_list,
+        'apteka_equipment': apteka_equipment,
+    }
+
+    return render(request, 'main/equipment_list.html', context)
 
 
 def get_data_lan(apteka_id):
@@ -244,12 +254,6 @@ def get_data_lan(apteka_id):
             connection.close()
 
     return lan_list
-
-
-# def list_apteka_lan(request):
-#     obj_id = request.GET.get('object')
-#     apteka_lan = get_data_lan(obj_id)
-#     return render(request, 'main/lan_list_old.html', {'apteka_lan': apteka_lan})
 
 
 def get_apteka_id(apteka_name):

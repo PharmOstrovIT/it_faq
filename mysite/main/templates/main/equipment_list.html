@@ -15,11 +15,17 @@
 <div style="padding:5px;margin-top:30px;">
 
     <div>
-    <form method="GET" action="/equipment_list">
-        <label for="apteka_id">Введите номер Аптеки:</label>
-        <input id="apteka_id" type="text" name="object" value="1"> <!-- В "value=", можно внести значение по умолчанию -->
+<!--    <form method="GET" action="/equipment_list">-->
+<!--        <label for="apteka_id">Введите номер Аптеки:</label>-->
+<!--        <input id="apteka_id" type="text" name="object" value="1"> &lt;!&ndash; В "value=", можно внести значение по умолчанию &ndash;&gt;-->
+<!--        <input type="submit" value="Показать список оборудования">-->
+<!--    </form>-->
+<!--    <div>-->
+        <form method="GET" action="/equipment_list">
+            {{ location_list }}
         <input type="submit" value="Показать список оборудования">
     </form>
+    </div>
     </div>
 
     <div>
