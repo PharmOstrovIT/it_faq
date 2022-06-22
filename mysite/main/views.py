@@ -219,6 +219,7 @@ def list_apteka_equipment(request):
         'query_results': query_results,
         'location_list': location_list,
         'apteka_equipment': apteka_equipment,
+        'obj_id': obj_id,
     }
 
     return render(request, 'main/equipment_list.html', context)
@@ -306,5 +307,6 @@ def list_apteka_lan(request):
         'query_results': query_results,
         'location_list': location_list,
         'apteka_lan': apteka_lan,
+        'obj_id': obj_id,
     }
     return render(request, 'main/lan_list.html', context)
