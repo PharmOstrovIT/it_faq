@@ -210,6 +210,8 @@ def get_data_equipment(apteka_id):
 
 def list_apteka_equipment(request):
     obj_id = request.GET.get('locations')
+    if obj_id is None:
+        obj_id = "Аптека №1"
     apteka_id = get_apteka_id(obj_id)
     apteka_equipment = get_data_equipment(apteka_id)
     query_results = Apteka.objects.all()
@@ -298,6 +300,8 @@ def get_apteka_id(apteka_name):
 
 def list_apteka_lan(request):
     obj_id = request.GET.get('locations')
+    if obj_id is None:
+        obj_id = "Аптека №1"
     apteka_id = get_apteka_id(obj_id)
     apteka_lan = get_data_lan(apteka_id)
     query_results = Apteka.objects.all()
